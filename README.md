@@ -1,6 +1,10 @@
 # Datatable
 
+## Develop
+```bash
+go run ./serv
+```
 ## Build
 ```bash
-tinygo build -o main.wasm -target wasm ./main.go
+tinygo build -o ./html/main.wasm -target wasm .
 ```

@@ -18,14 +18,12 @@ const wasmBrowserInstantiate = async (wasmModuleUrl, importObject) => {
 
 const go = new Go();
 const wasmLoad = async () => {
-  const importObject = go.importObject;
-  const wasmModule = await wasmBrowserInstantiate("./wasm/main.wasm", importObject);
-
-  go.run(wasmModule.instance);
-
-  // Call the Add function export from wasm, save the result
-  const addResult = wasmModule.instance.exports.add(24, 24);
-  document.body.textContent = `Hello World! addResult: ${addResult}`;
+  const wasmModule = await wasmBrowserInstantiate("./main.wasm", go.importObject);
+  var wasm = wasmModule.instance;
+  go.run(wasm);
+  wasm.exports.update();
+  console.log('WASM Complated.')
 };
-console.log('wsam Loading...')
+
+console.log('WASM Loading...')
 wasmLoad();
