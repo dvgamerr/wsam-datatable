@@ -22,6 +22,10 @@ const wasmLoad = async () => {
   var wasm = wasmModule.instance;
   go.run(wasm);
   wasm.exports.update();
+
+  document.querySelector('#a').oninput = wasm.exports.update;
+  document.querySelector('#b').oninput = wasm.exports.update;
+
   console.log('WASM Complated.')
 };
 

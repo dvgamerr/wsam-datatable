@@ -10,19 +10,20 @@ func main() {
 }
 
 //export add
-func add(a, b int) int {
+func Add(a, b int) int {
 	return a + b
 }
 
 //export update
-func update() {
-	// var val js.Value
+func Update() {
+	println("GO::EVENT Update!")
+
 	document := js.Global().Get("document")
 
 	aStr := document.Call("getElementById", "a").Get("value").String()
 	bStr := document.Call("getElementById", "b").Get("value").String()
 	a, _ := strconv.Atoi(aStr)
 	b, _ := strconv.Atoi(bStr)
-	result := add(a, b)
+	result := Add(a, b)
 	document.Call("getElementById", "result").Set("value", result)
 }
