@@ -302,7 +302,16 @@
 					"syscall/js.finalizeRef": (sp) => {
 						// Note: TinyGo does not support finalizers so this should never be
 						// called.
-						console.error('syscall/js.finalizeRef not implemented');
+						// :todo : this is copied from main Go wasm_exec
+						const id = mem().getUint32(sp + 8, true);
+						this._goRefCounts[id]--;
+						if (this._goRefCounts[id] === 0) {
+								const v = this._values[id];
+								this._values[id] = null;
+								this._ids.delete(v);
+								this._idPool.push(id);
+						}
+						// console.error('syscall/js.finalizeRef not implemented');
 					},
 
 					// func stringVal(value string) ref
